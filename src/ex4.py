@@ -1,5 +1,7 @@
 __title__ = "Classe Personne"
 
+from utils.prints import Color, print_result
+
 class Personne:
 	"""
 	Une classe qui représente une personne
@@ -80,11 +82,12 @@ def test_address() -> None:
 	:return: None
 	:rtype: None
 	"""
+	print_result("Test de la méthode set_address", Color.GREEN)
 	person: Personne = Personne("123 Main St", "John", "Doe", "555-555-5555")
 	print(person)
-	print(f"{person.address = }")
-	person.set_address(input("Entrez la nouvelle adresse: "))
-	print(f"{person.address = }")
+	print_result(f"{person.address = }")
+	person.set_address(input("Entrez la nouvelle adresse : "))
+	print_result(f"{person.address = }")
 
 def test_first_name() -> None:
 	"""
@@ -92,11 +95,12 @@ def test_first_name() -> None:
 	:return: None
 	:rtype: None
 	"""
+	print_result("Test de la méthode set_first_name", Color.GREEN)
 	person: Personne = Personne("123 Main St", "John", "Doe", "555-555-5555")
 	print(person)
-	print(f"{person.first_name = }")
-	person.set_first_name(input("Entrez le nouveau prénom: "))
-	print(f"{person.first_name = }")
+	print_result(f"{person.first_name = }")
+	person.set_first_name(input("Entrez le nouveau prénom : "))
+	print_result(f"{person.first_name = }")
 
 def test_last_name() -> None:
 	"""
@@ -104,11 +108,12 @@ def test_last_name() -> None:
 	:return: None
 	:rtype: None
 	"""
+	print_result("Test de la méthode set_last_name", Color.GREEN)
 	person: Personne = Personne("123 Main St", "John", "Doe", "555-555-5555")
 	print(person)
-	print(f"{person.last_name = }")
-	person.set_last_name(input("Entrez le nouveau nom: "))
-	print(f"{person.last_name = }")
+	print_result(f"{person.last_name = }")
+	person.set_last_name(input("Entrez le nouveau nom : "))
+	print_result(f"{person.last_name = }")
 
 def test_phone() -> None:
 	"""
@@ -116,11 +121,12 @@ def test_phone() -> None:
 	:return: None
 	:rtype: None
 	"""
+	print_result("Test de la méthode set_phone", Color.GREEN)
 	person: Personne = Personne("123 Main St", "John", "Doe", "555-555-5555")
 	print(person)
-	print(f"{person.phone = }")
-	person.set_phone(input("Entrez le nouveau numéro de téléphone: "))
-	print(f"{person.phone = }")
+	print_result(f"{person.phone = }")
+	person.set_phone(input("Entrez le nouveau numéro de téléphone : "))
+	print_result(f"{person.phone = }")
 
 def ex4() -> None:
 	"""
@@ -130,7 +136,7 @@ def ex4() -> None:
 	• l’adresse,
 	• le numéro de téléphone,
 	La classe contient les méthodes de
-	• création ,
+	• création,
 	• modification,
 	• affichage de la personne,
 	Faire un script qui teste toutes les méthodes que vous avez écrites.
@@ -138,8 +144,11 @@ def ex4() -> None:
 	:rtype: None
 	"""
 	test_address()
+	print()
 	test_first_name()
+	print()
 	test_last_name()
+	print()
 	test_phone()
 
 if __name__ == "__main__":

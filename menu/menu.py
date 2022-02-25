@@ -3,7 +3,7 @@ import sys
 from typing import Callable
 
 from utils.inputs import int_input
-from utils.prints import Color, print_line
+from utils.prints import Color, print_line, print_result
 
 def get_exercices_count() -> int:
 	"""
@@ -46,8 +46,8 @@ def print_menu() -> None:
 	"""
 	print_line("Menu", color = Color.YELLOW)
 	exercices: list[tuple[str, str, Callable[[], None]]] = [get_exercice(i) for i in range(1, get_exercices_count() + 1)]
-	list_exercices: str = '\n'.join([f"Exercice {Color.CYAN}{i + 1}{Color.CYAN} - {Color.GREEN + exercices[i][0] + Color.END}" for i in range(len(exercices))])
-	list_exercices += f"\n\n{Color.RED}STOP pour arrêter.{Color.END}"
+	list_exercices: str = '\n'.join([f"Exercice {Color.cyan(i + 1)} - {Color.green(exercices[i][0])}" for i in range(len(exercices))])
+	list_exercices += Color.red('\n\nSTOP pour arrêter.')
 	print(list_exercices)
 
 def menu() -> None:
@@ -56,19 +56,19 @@ def menu() -> None:
 	:return: None
 	:rtype: None
 	"""
-	print(f"{Color.RED}Bienvenue dans le menu du TP 3{Color.END}")
+	print(Color.red('Bienvenue dans le menu du TP 3'))
 	while True:
 		print_menu()
 		try:
-			input1: int = int_input(f"{Color.BLUE}Veuillez choisir un exercice : {Color.END}", 1, lambda _: get_exercices_count(), True)
+			input1: int = int_input(Color.blue('Veuillez choisir un exercice : '), 1, lambda _: get_exercices_count(), True)
 			exercice: tuple[str, str, Callable[[], None]] = get_exercice(input1)
 			print(exercice)
 			print_line(f"Exercice n°{input1}", color = Color.YELLOW)
-			print(f"Consigne: {get_instructions_from_docstring(exercice)}\n")
+			print_result(f"{get_instructions_from_docstring(exercice)}\n", Color.BLUE)
 			exercice[2]()
-			input(f"{Color.CYAN}Appuyez sur ENTRÉE pour continuer...{Color.END}")
+			input(Color.cyan('Appuyez sur ENTRÉE pour continuer...'))
 		except:
-			print(f"\n{Color.CYAN}Au revoir :){Color.END}")
+			print(Color.cyan('\nAu revoir :)'))
 			sys.exit(1)
 
 if __name__ == '__main__':

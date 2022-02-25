@@ -4,6 +4,8 @@ from src.ex4 import Personne
 
 __title__ =  "Classe Etudiant"
 
+from utils.prints import Color, print_result
+
 class Etudiant(Personne):
 	"""
 	Une classe qui hérite de Person et qui représente un étudiant.
@@ -55,6 +57,7 @@ def test_student_notes() -> None:
 	:return: None
 	:rtype: None
 	"""
+	print_result("Test de la méthode get_notes de la classe Student", Color.GREEN)
 	notes: dict[str, list[int]] = {
 		'Math': [20, 18, 17.5, 18.75, 19.5],
 		'Anglais': [15.5, 13.25, 14.5],
@@ -63,8 +66,9 @@ def test_student_notes() -> None:
 	}
 	student: Etudiant = Etudiant('123 Fake St', 'John', 'Doe', '123-456-7890', notes)
 	print(student)
-	print(f'{student.get_notes("Math") = }')
-	print(student.get_notes(input("Entrez une matière : ")))
+	print_result(f'{student.get_notes("Math") = }')
+	subject = input("Entrez une matière : ")
+	print_result(f"{student.get_notes(subject) = }")
 
 def ex5() -> None:
 	"""
