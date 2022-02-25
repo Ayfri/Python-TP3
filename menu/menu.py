@@ -1,8 +1,19 @@
+import os
 import sys
 from typing import Callable
 
 from utils.inputs import int_input
 from utils.prints import Color, print_line
+
+def get_exercices_count() -> int:
+	"""
+	Retourne le nombre d'exercices.
+	:return: Le nombre d'exercices.
+	:rtype: int
+	"""
+
+	# count the number of files with pattern "ex[number].py" in directory ../src
+	return len([name for name in os.listdir('src') if name.startswith('ex') and name.endswith('.py')])
 
 def get_exercice(number: int) -> tuple[str, str, Callable[[], None]]:
 	"""
@@ -14,7 +25,7 @@ def get_exercice(number: int) -> tuple[str, str, Callable[[], None]]:
 	"""
 	file: object = __import__(f"src.ex{number}")
 	module: object = getattr(file, f"ex{number}")
-	function: object = getattr(module, f"ex{number}")
+	function: Callable[[], None] = getattr(module, f"ex{number}")
 	return getattr(module, "__title__"), str(function.__doc__), function
 
 def get_instructions_from_docstring(function: tuple[str, str, Callable[[], None]]) -> str:
@@ -34,7 +45,7 @@ def print_menu() -> None:
 	:rtype: None
 	"""
 	print_line("Menu", color = Color.YELLOW)
-	exercices: list[tuple[str, str, Callable[[], None]]] = [get_exercice(i) for i in range(1, 9)]
+	exercices: list[tuple[str, str, Callable[[], None]]] = [get_exercice(i) for i in range(1, get_exercices_count() + 1)]
 	list_exercices: str = '\n'.join([f"Exercice {Color.CYAN}{i + 1}{Color.CYAN} - {Color.GREEN + exercices[i][0] + Color.END}" for i in range(len(exercices))])
 	list_exercices += f"\n\n{Color.RED}STOP pour arrêter.{Color.END}"
 	print(list_exercices)
@@ -45,12 +56,13 @@ def menu() -> None:
 	:return: None
 	:rtype: None
 	"""
-	print(f"{Color.RED}Bienvenue dans le menu du TP 2{Color.END}")
+	print(f"{Color.RED}Bienvenue dans le menu du TP 3{Color.END}")
 	while True:
 		print_menu()
 		try:
-			input1: int = int_input(f"{Color.BLUE}Veuillez choisir un exercice : {Color.END}", 1, lambda i: 8, True)
+			input1: int = int_input(f"{Color.BLUE}Veuillez choisir un exercice : {Color.END}", 1, lambda _: get_exercices_count(), True)
 			exercice: tuple[str, str, Callable[[], None]] = get_exercice(input1)
+			print(exercice)
 			print_line(f"Exercice n°{input1}", color = Color.YELLOW)
 			print(f"Consigne: {get_instructions_from_docstring(exercice)}\n")
 			exercice[2]()

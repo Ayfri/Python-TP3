@@ -2,7 +2,9 @@ import random
 
 from utils.inputs import int_input
 
-def ext2() -> None:
+__title__ = "Jeu des allumettes"
+
+def ex2() -> None:
 	"""
 	La règle : il y a plusieurs allumettes (autant qu'on le veut) et on en retire
 1,2 ou 3 et celui qui prend la dernière a perdu.
@@ -12,14 +14,14 @@ Le joueur de départ est choisi aléatoirement
 	:rtype: None
 	"""
 	player: bool = random.randint(0, 1) == 0
-	playerName: str = input("Entrez votre nom : ")
+	player_name: str = input("Entrez votre nom : ")
 	nbr_matches: int = int_input("Combien d'allumettes voulez-vous ? ", 0)
 	max_matches: int = nbr_matches
 
 	while nbr_matches > 0:
 		player = not player
 		if player:
-			nbr_matches -= int_input(f"{'|' * nbr_matches:>{max_matches}} {playerName} enlève : ", 1, lambda _: nbr_matches if nbr_matches < 3 else 3)
+			nbr_matches -= int_input(f"{'|' * nbr_matches:>{max_matches}} {player_name} enlève : ", 1, lambda _: nbr_matches if nbr_matches < 3 else 3)
 			continue
 
 		else:
@@ -29,9 +31,9 @@ Le joueur de départ est choisi aléatoirement
 			continue
 
 	if not player:
-		print(f"{playerName} a gagné >:D \nL'ordinateur a perdu :[")
+		print(f"{player_name} a gagné >:D \nL'ordinateur a perdu :[")
 	else:
-		print(f"{playerName} a perdu :'( \nL'ordinateur a gagné :]")
+		print(f"{player_name} a perdu :'( \nL'ordinateur a gagné :]")
 
 if __name__ == "__main__":
 	ext2()
